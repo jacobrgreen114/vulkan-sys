@@ -1,0 +1,10 @@
+[package]
+name = "vulkan-sys"
+version = "0.0.1-alpha.0"
+description = "Low-level Vulkan bindings for Rust"
+authors = ["Jacob R. Green"]
+edition = "2021"
+license-file = "LICENSE"
+
+[build-dependencies]
+bindgen = "0.69.4"
