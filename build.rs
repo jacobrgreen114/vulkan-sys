@@ -5,11 +5,11 @@ use bindgen;
 use std::env::var;
 use std::path::PathBuf;
 
-macro_rules! cargo_warning {
-    ($($arg:tt)*) => {
-        println!("cargo:warning={}", format!($($arg)*));
-    };
-}
+// macro_rules! cargo_warning {
+//     ($($arg:tt)*) => {
+//         println!("cargo:warning={}", format!($($arg)*));
+//     };
+// }
 
 macro_rules! cargo_panic {
     ($($arg:tt)*) => {
@@ -18,8 +18,8 @@ macro_rules! cargo_panic {
     };
 }
 
-const BITFIELD_ENUMS: &[&str] = &[
-];
+const RUSTIFIED_ENUMS: &[&str] = &["VkObjectType"];
+const BITFIELD_ENUMS: &[&str] = &[];
 
 fn main() {
     let vulkan_sdk_path = PathBuf::from(var("VULKAN_SDK").expect("VULKAN_SDK not set"));
@@ -72,6 +72,10 @@ fn main() {
         .allowlist_function("vk.*")
         .allowlist_var("VK.*")
         .prepend_enum_name(false);
+
+    for rustified in RUSTIFIED_ENUMS {
+        builder = builder.rustified_non_exhaustive_enum(rustified)
+    }
 
     for bitfield in BITFIELD_ENUMS {
         builder = builder.bitfield_enum(bitfield)

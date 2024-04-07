@@ -6,5 +6,9 @@ authors = ["Jacob R. Green"]
 edition = "2021"
 license-file = "LICENSE"
 
+[dependencies]
+thiserror = "1.0.29"
+log = "0.4.21"
+
 [build-dependencies]
 bindgen = "0.69.4"
