@@ -5,15 +5,15 @@ use bindgen;
 use std::env::var;
 use std::path::PathBuf;
 
-// macro_rules! cargo_warning {
-//     ($($arg:tt)*) => {
-//         println!("cargo:warning={}", format!($($arg)*));
-//     };
-// }
+macro_rules! cargo_warning {
+    ($($arg:tt)*) => {
+        println!("cargo:warning={}", format!($($arg)*));
+    };
+}
 
 macro_rules! cargo_panic {
     ($($arg:tt)*) => {
-        println!("cargo:warning={}", format!($($arg)*));
+        cargo_warning!($($arg)*);
         panic!($($arg)*);
     };
 }
@@ -67,6 +67,9 @@ fn main() {
         .clang_args(&["-L", vulkan_lib_dir.to_str().unwrap()])
         .clang_args(&["-D", platform_define])
         .header(vulkan_header_path.to_str().unwrap())
+        .allowlist_recursively(false)
+        .allowlist_file(".*vulkan.*")
+        .allowlist_file(".*vk_video.*")
         .allowlist_type("Vk.*")
         .allowlist_type("PFN_vk.*")
         .allowlist_function("vk.*")
