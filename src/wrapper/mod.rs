@@ -161,6 +161,18 @@ macro_rules! define_device_proc {
 
 define_instance_proc!(CreateInstance, PFN_vkCreateInstance, c"vkCreateInstance");
 define_instance_proc!(DestroyInstance, PFN_vkDestroyInstance, c"vkDestroyInstance");
+
+define_instance_proc!(
+    CreateDebugUtilsMessengerEXT,
+    PFN_vkCreateDebugUtilsMessengerEXT,
+    c"vkCreateDebugUtilsMessengerEXT"
+);
+define_instance_proc!(
+    DestroyDebugUtilsMessengerEXT,
+    PFN_vkDestroyDebugUtilsMessengerEXT,
+    c"vkDestroyDebugUtilsMessengerEXT"
+);
+
 define_instance_proc!(
     EnumeratePhysicalDevices,
     PFN_vkEnumeratePhysicalDevices,
