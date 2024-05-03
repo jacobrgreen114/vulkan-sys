@@ -1,13 +1,22 @@
 // Copyright (c) 2024 Jacob R. Green
 // All rights reserved.
 
-#![allow(non_upper_case_globals)]
-#![allow(non_camel_case_types)]
-#![allow(non_snake_case)]
+mod bindings;
+pub use bindings::*;
 
-#[cfg(target_os = "windows")]
-use windows::core::*;
-#[cfg(target_os = "windows")]
-use windows::Win32::Foundation::*;
+/// Rustified "safe" wrappers for vulkan functions
+pub mod wrapper;
 
-include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
+pub const VK_KHR_VALIDATION_LAYER_NAME: &[u8] = b"VK_LAYER_KHRONOS_validation\0";
+
+impl Clone for VkWin32SurfaceCreateInfoKHR {
+    fn clone(&self) -> Self {
+        Self {
+            sType: self.sType,
+            pNext: self.pNext,
+            flags: self.flags,
+            hinstance: self.hinstance,
+            hwnd: self.hwnd,
+        }
+    }
+}
